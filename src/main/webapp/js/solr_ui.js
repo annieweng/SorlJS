@@ -8,7 +8,7 @@ var Manager;
             ALLsolrUrl: 'http://localhost:8080/solr/example/select'
                     //uncomment this, if we want to have proxy through local web container. this is needed for
                     //export function to work.
-                    //   , proxyUrl: '/SolrJS/servlets/solrRequestServer'
+                    //   , proxyUrl: '/SolrJSView/servlets/solrRequestServer'
                     //facet fields of solr
                     , facetFields: ['source_nm', 'state_text', 'country_text', 'record_type', 'phone_text', 'account_text','money_text']
         });
@@ -49,13 +49,6 @@ var Manager;
 
 
         }
-
-
-
-
-
-
-
 
 
         //add year facet view to html

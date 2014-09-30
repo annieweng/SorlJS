@@ -1,6 +1,6 @@
-# SolrJS
+# SolrJSView
 
-SolrJS is a self contain Java Script html5 library for creating user interfaces to [Apache Solr].
+SolrJSView is a Java Script/Jquery web front end library for creating user interfaces to [Apache SOLR]. data are presented in table and popup document view.
 the application can also be deploy as WAR file in any J2EE web container using Maven.
 
 this application is originally fork from https://github.com/evolvingweb/ajax-solr/

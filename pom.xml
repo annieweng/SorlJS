@@ -4,10 +4,10 @@
 
 <groupId>com.dt.solr</groupId>
 	<version>1</version>
-	<artifactId>SolrJS</artifactId>
+	<artifactId>SolrJSView</artifactId>
 	<packaging>war</packaging>
 
-	<name>SolrJS</name>
+	<name>SolrJSView</name>
 	<url></url>
 
 	<properties>
