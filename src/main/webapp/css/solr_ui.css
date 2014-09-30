@@ -1,0 +1,883 @@
+* {
+  padding: 0;
+  
+  margin: 0;
+}
+
+
+
+.rightArrow {
+	float: right;
+}
+
+
+
+ul#pref {
+    margin:0px auto;
+    position:relative;
+    float:left;
+    
+     font-size:12px;
+    background-color: #fff;
+   
+}
+ 
+ul#pref li {
+    display:inline;
+    font-size:12px;
+    font-weight:bold;
+    margin:0;
+  
+    width: 40px;
+   
+    position:relative;
+    padding: 0px 0px 0px;
+    /*
+   border-top:1px solid #c4dbe7;
+    border-bottom:2px solid #c4dbe7;
+    */
+   
+}
+ 
+ul#pref li a {
+    
+    color:#616161;
+    text-shadow:0px 0px 0px #fff;
+    text-decoration:none;
+   /* display:inline-block;
+   */
+   
+   color: #3399FF;
+   width: 40px;
+  
+    background: #f5f5f5;    
+    -webkit-transition:color 0.2s linear, background 0.2s linear;  
+    -moz-transition:color 0.2s linear, background 0.2s linear; 
+    -o-transition:color 0.2s linear, background 0.2s linear;   
+    transition:color 0.2s linear, background 0.2s linear;  
+}
+ 
+ul#pref li a:hover {
+    background:#f8f8f8;
+    color:#282828;
+}
+
+ 
+ul#pref li:hover > a {
+     left:0px;
+   top: 20px;
+    background:#fff;
+}
+
+
+/* Drop-Down Navigation */
+ul#pref li:hover > ul
+{
+/*these 2 styles are very important,
+being the ones which make the drop-down to appear on hover */
+   left:0px;
+   top: 20px;
+    float: right;
+    visibility:visible;
+    opacity:1;
+}
+ 
+ul#pref ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;   
+/*the next 2 styles are very important,
+being the ones which make the drop-down to stay hidden */
+    visibility:hidden;
+    opacity:0;
+    position: absolute;
+    z-index: 99999;
+   
+    background:#f8f8f8;
+    box-shadow:0px 0px 0px #ccc;
+/* css3 transitions for smooth hover effect */
+    -webkit-transition:opacity 0.2s linear, visibility 0.2s linear;
+    -moz-transition:opacity 0.2s linear, visibility 0.2s linear;
+    -o-transition:opacity 0.2s linear, visibility 0.2s linear;
+    transition:opacity 0.2s linear, visibility 0.2s linear;    
+}
+ 
+ul#pref ul {
+    top: 0px;
+    left: 0px;
+    background-color: grey;
+}
+ 
+ul#pref ul li ul {
+    top: 20px;
+    left: 81px; /* strong related to width:180px; from above */
+    /*width: 100px;*/
+     width: 100%;
+}
+ 
+ul#pref ul li {
+    clear:both;
+  
+    border:0 none;
+   /* 
+   border-bottom:1px solid #c9c9c9;
+   */
+   
+}
+ 
+ul#pref ul li a {
+    background:none;
+   
+    padding:0px 0px;
+    /*
+    width: 140px;
+    */
+    color:#000;
+   width: 100%;
+   
+    text-shadow:0px 0px 0px #fff;
+    text-decoration:none;
+    display:inline-block;
+    border:0 none;
+    float:none;
+    clear:both;
+   
+}
+
+
+
+
+ul#export {
+    margin:0px auto;
+    position:relative;
+    float:left;
+    
+     font-size:12px;
+  
+   
+}
+ 
+ul#export li {
+    display:inline;
+    font-size:12px;
+    font-weight:bold;
+    margin:0;
+  
+    width: 40px;
+   
+    position:relative;
+    padding: 0px 15px 0px;
+    /*
+   border-top:1px solid #c4dbe7;
+    border-bottom:2px solid #c4dbe7;
+    */
+   
+}
+ 
+ul#export li a {
+    
+    color:#616161;
+    text-shadow:0px 0px 0px #fff;
+    text-decoration:none;
+   /* display:inline-block;
+   */
+   
+   color: #3399FF;
+   width: 30px;
+  
+    background: #f5f5f5;    
+    -webkit-transition:color 0.2s linear, background 0.2s linear;  
+    -moz-transition:color 0.2s linear, background 0.2s linear; 
+    -o-transition:color 0.2s linear, background 0.2s linear;   
+    transition:color 0.2s linear, background 0.2s linear;  
+}
+ 
+ul#export li a:hover {
+   background:#f8f8f8;
+    color:#282828;
+    
+}
+ 
+
+ 
+ul#export li:hover > a {
+     left:0px;
+   top: 20px;
+ 
+    background:#fff;
+  
+}
+
+
+/* Drop-Down Navigation */
+ul#export li:hover > ul
+{
+/*these 2 styles are very important,
+being the ones which make the drop-down to appear on hover */
+   left:0px;
+   top: 20px;
+    float: right;
+    visibility:visible;
+    opacity:1;
+}
+ 
+ul#export ul, ul#export ul li ul {
+    list-style: none;
+    margin: 0;
+    padding: 0px 0px 0px;   
+    
+/*the next 2 styles are very important,
+being the ones which make the drop-down to stay hidden */
+    visibility:hidden;
+    opacity:0;
+    position: absolute;
+    z-index: 99999;
+   
+    background:#f8f8f8;
+    box-shadow:0px 0px 0px #ccc;
+/* css3 transitions for smooth hover effect */
+    -webkit-transition:opacity 0.2s linear, visibility 0.2s linear;
+    -moz-transition:opacity 0.2s linear, visibility 0.2s linear;
+    -o-transition:opacity 0.2s linear, visibility 0.2s linear;
+    transition:opacity 0.2s linear, visibility 0.2s linear;    
+}
+ 
+ul#export ul {
+    top: 0px;
+    left: 0px;
+   
+}
+/*
+ 
+ul#export  li ul{
+    top: 20px;
+   
+    left: 21px; 
+    width: 40px;
+    
+  
+}
+*/
+  ul#export li ul li 
+  {
+   width: 40px;
+  }
+ul#export ul li {
+    clear:both;
+   
+    border:0 none;
+   /* 
+   border-bottom:1px solid #c9c9c9;
+   */
+   
+}
+ 
+ul#export ul li a {
+    background:none;
+    padding:0px 0px;
+    width: 40px;
+    color:#616161;
+    text-shadow:0px 0px 0px #fff;
+    text-decoration:none;
+    display:inline-block;
+    border:0 none;
+    float:none;
+    clear:both;
+   
+}
+
+a.ascending{
+	 padding:5px 20px 5px 5px; text-align:left;
+	 background:  url(../images/AtoZSort.png) center right no-repeat;
+}
+
+a.descending{
+	 padding:5px 20px 5px 5px; text-align:left;
+	 background:  url(../images/ZtoASort.png) center right no-repeat;
+}
+a.unsorted{
+	
+	padding:5px 20px 5px 5px; text-align:left;
+	 background:  url(../images/bg.gif) center right no-repeat;
+}
+a.unselectedCheckBox{
+	padding:5px 20px 5px; text-align:left;
+	 background:  url(../images/ui-check-box-uncheck-icon.png) center right no-repeat;
+}
+
+a.selectedCheckBox{
+	
+	 padding:5px 20px 5px 5px; text-align:left;
+	 background:  url(../images/ui-check-box-icon.png) center right no-repeat;
+	
+}
+body {
+	/*
+  background: #fff url(../images/header.gif) repeat-x;
+  */
+  color: #333;
+  
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+}
+img {
+  border: none;
+}
+a {
+	 border: none;
+	 cursor: pointer;
+  color: #6998f0;
+  
+  /*text-decoration: none;
+  */
+}
+
+
+
+a:hover {
+   /* background-color:#6998f0;
+	color: #ffffff;
+   */
+    
+	  font-weight: bold;
+          
+
+}
+
+
+#wrap2 {
+  width: 100%;
+  margin: 0px auto;
+  top-padding: 10px;
+}
+
+#wrap {
+  width: 100%;
+  margin: 0px auto;
+  
+  
+}
+.clear {
+  clear: both;
+}
+.column{
+	font-weight:bold;
+}
+/** table */
+table{
+      border: 1px solid #FFFFFF;
+    
+	/*border-collapse: collapse;
+         border-width: 0;
+	border-color:  #000;
+   border-style: solid;	
+ */
+}
+caption{
+	font-weight:bold;
+}
+/*
+table tbody {  overflow-x:scroll; display:block; }
+table thead { display:block; }
+*/
+/*
+
+table td, table th {
+    border: 1px solid #FFFFFF;
+}
+*/
+th {
+     border: 1px solid;
+      border-color: #EAF2D3;
+     /*
+    background-color: #333333;
+    color: #fbfbfb;
+     */
+    font-size:  8pt;
+    background-color: #bbbbbb;
+    color: #616161;
+   
+      text-align: center;
+      padding: 4px;
+      max-width:500px;
+        
+         text-wrap:avoid;
+    /*
+   
+	 font-size: 12px;
+	 font-weight:bold;
+	background-color: #6998f0;
+      border: 1px solid #000;
+      
+	border-bottom: 3px solid #000;
+      
+	color: #fff;
+	 link: #fff;
+	padding: 4px;
+	 text-align: center;
+      */
+}
+
+
+ td {
+    border: 1px solid silver;
+    color: #282828;
+    font-size: 8pt;
+    padding: 5px;
+       word-wrap: break-all;
+     word-break:  break-all;
+  
+	align: center;
+	autoScroll: true;
+	 text-align: center;
+         link: #000;
+         max-width:500px;
+      
+}
+/*
+thead, th{
+    
+    cursor:none;
+}
+
+tr{
+      cursor: pointer;
+    
+}
+*/
+tr:nth-child(odd) { background-color : 
+                        #E2E4FF;
+                        /*#EAF2D3;*/ }
+tr:nth-child(even) { background-color :
+                         /*#dde;*/
+   #F8F8F8;}
+tr:hover { background-color :#6998f0;
+           /*
+            font-weight:bold;
+           */
+           color: #fbfbfb;
+     }
+
+/* original*/
+/*
+th{
+	align: center;
+	 font-size: 12px;
+	 font-weight:bold;
+	background-color: #6998f0;
+	border: 1px solid #000;
+	border-bottom: 3px solid #000;
+	color: #fff;
+	 link: #fff;
+	padding: 4px;
+	 text-align: center;
+}
+
+
+
+td{
+	padding: 4px;
+	align: center;
+	autoScroll: true;
+	 text-align: center;
+         link: #000;
+}
+
+*/
+
+/* header */
+
+#header {
+  height: 90px;
+}
+#header h1 {
+  padding: 20px 0 5px 10px;
+  font-size: 20px;
+  letter-spacing: -2px;
+}
+#header h2 {
+  padding-left: 10px;
+  color: #666;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.doc-details-text {
+    font-family: tahoma,arial,helvetica,sans-serif;
+    font-size: 12px;
+    margin-left: 5px !important;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+
+/* right */
+
+.right {
+ 
+
+ 
+ margin-left: 345px;
+ 
+  padding: 10px 10px 10px;
+  border-left: 1px solid #aaa;
+  text-align: justify;
+  align: center;
+  
+ overflow:auto;
+  /*
+  float: right;
+   display: inline;
+  float: right;
+  width: 100%
+ 
+
+  border-left: 1px solid #aaa;
+  text-align: justify;
+  align: center;
+  */
+}
+.right h2 {
+  padding: 15px 0 5px 0;
+  color: #B4241B;
+  font-size: 20px;
+  font-weight: 100;
+  letter-spacing: -2px;
+}
+#result a {
+  margin-right: 5px;
+    color: blue;
+    
+  text-decoration: none;
+  
+}
+
+#result a:hover{
+    color: white; 
+}
+.search ul
+{
+	
+	align: center;
+}
+#searchheader a
+{
+	font-size: 12px;
+	text-align:center;
+	 align: top;
+	 padding: 10px 15px 0px 0px;
+	
+}
+
+#pager a ,
+#pager-header a
+{
+	font-size: 12px;
+    font-weight:bold;
+    color: #3399FF;
+    margin-left: 5px;
+  margin-right: 5px;
+  
+}
+#navigation {
+  border-bottom: 1px solid #000;
+}
+
+#pager,
+#pager-header {
+  display: inline;
+}
+
+#selection {
+  padding: 10px 15px 0;
+}
+#selection li {
+  list-style-type: none;
+}
+
+#pager li{
+	 list-style-type: none;
+  display: inline;
+}
+
+.links li,
+li {
+  list-style-type: none;
+  /*display: inline;*/
+}
+
+#docs {
+ /* padding-top: 1px;
+ */
+}
+
+/* left */
+
+.left {
+  float: left;
+  width: 310px;
+  /*
+  min-width: 350px;
+  max-width: 400px;
+ */
+  padding: 0px 20px 0px;
+  align: center;
+}
+
+.left h1 {
+  clear: left;
+  padding-top: 20px;
+  color: #333;
+  font-size: 20px;
+  letter-spacing: -2px;
+}
+
+.left h2 {
+  clear: left;
+  padding-top: 20px;
+  color: #333;
+  font-size: 13px;
+}
+
+.left fieldset{
+padding-left: 2px;
+	 padding-right: 2px;
+	 width: 250px;
+}
+
+#search input {
+  width: 200px;
+ display: inline;
+ 
+}
+#date input{
+	width: 50px;
+	display: inline;
+}
+.dateLine input{
+	width: 150px;
+}
+#calendar {
+  width: 160px;
+  height: 160px;
+}
+#search_help {
+  font-size: 80%;
+}
+.tagcloud {
+  padding: 10px 15px 0;
+}
+.tagcloud_item {
+  float: left;
+  display: block;
+  margin-right: 4px;
+  color: #6998f0;
+ max-width: 210px;
+}
+.tagcloud_item:hover {
+  color: #f00;
+}
+.submit{
+	float: right;
+	
+	background-color: #6998f0;
+	color: #ffffff;
+}
+/* tagcloud */
+
+a.tagcloud_size_0 {
+	padding-left: 2px;
+font-size: 80%;
+color: #98c8ff;
+ 
+}
+
+a.tagcloud_size_0:hover {
+    background-color: #98c8ff;
+	color: #FFFFFF;
+	padding-left: 2px;
+font-size: 80%;
+ 
+}
+a.tagcloud_size_1 {
+	color: #888888;
+		padding-left: 2px;
+font-size: 90%;
+  
+}
+
+a.tagcloud_size_1:hover {
+	background-color: #888888;
+	color: #FFFFFF;
+         
+}
+
+
+a.tagcloud_size_2 {
+		padding-left: 2px;
+font-size: 100%;
+
+}
+a.tagcloud_size_2:hover
+{
+	background-color: #3399FF;
+	color: #FFFFFF;
+        
+}
+
+a.tagcloud_size_3 {
+		color: #339999;
+		padding-left: 2px;
+font-size: 110%;
+  
+}
+a.tagcloud_size_3:hover {
+	background-color: #339999;
+	color: #FFFFFF;
+         
+}
+a.tagcloud_size_4 {
+	color: #339933;
+		padding-left: 2px;
+font-size: 120%;
+ 
+}
+
+a.tagcloud_size_4:hover {
+	background-color: #339933;
+	color: #FFFFFF;
+         
+}
+a.tagcloud_size_5 {
+	color: #339933;
+		padding-left: 2px;
+                 
+font-size: 130%;
+}
+a.tagcloud_size_5:hover {
+	background-color: #339933;
+	color: #FFFFFF;
+      
+}
+
+a.tagcloud_size_6 {
+	color: #99CC33;
+		padding-left: 2px;
+font-size: 140%;
+  word-wrap: break-word;
+}
+
+a.tagcloud_size_6:hover {
+	background-color: #99CC33;
+	color: #FFFFFF;
+         
+}
+
+
+a.tagcloud_size_7 {
+		color: #FF9933;
+		padding-left: 2px;
+font-size: 150%;
+     
+}
+
+a.tagcloud_size_7:hover {
+	background-color: #FF9933;
+	color: #FFFFFF;
+         
+}
+
+a.tagcloud_size_8 {
+	color: #FF9933;
+		padding-left: 2px;
+font-size: 160%;
+  word-wrap: break-word;
+}
+
+a.tagcloud_size_8:hover {
+	background-color: #FF9933;
+	color: #FFFFFF;
+      
+}
+
+a.tagcloud_size_9 {
+	color: #FF3300;
+		padding-left: 2px;
+font-size: 170%;
+ 
+}
+a.tagcloud_size_9:hover {
+	background-color: #FF3300;
+	color: #FFFFFF;
+        
+}
+
+a.tagcloud_size_10 {
+		padding-left: 2px;
+font-size: 180%;
+color: #FF3300;
+  word-wrap: break-word;
+}
+
+a.tagcloud_size_10:hover {
+	background-color: #FF3300;
+	color: #FFFFFF;
+     word-wrap: break-word;    
+}
+
+a.more{
+	padding-left: 2px;
+	padding-right: 2px;
+
+	font-size: 12px;
+    font-weight:bold;
+    color: #3399FF;
+
+}
+
+a.more:hover {
+	background-color: #FF3300;
+	color: #FFFFFF;
+}
+
+a.showDoc{
+	padding-left: 2px;
+	padding-right: 2px;
+
+	font-size: 12px;
+    font-weight:bold;
+    color: #000000;
+
+}
+
+a.showDoc:hover {
+	background-color: #FF3300;
+	color: #FFFFFF;
+}
+
+.dropdown{
+position:absolute;
+left: 10px;
+right:1px;
+top:5px;
+z-index:1000;
+}
+
+select {width: 100px; font-size: 9px}
+option {width: 100px;}
+
+
+.prefill{padding-left:1px; padding-right:1px;display:none; width:350px}
+
+.postfill{padding-left:1px; padding-right:1px; width:350px}
+
+.tab{padding-left:10px;}
+
+label { float:left; clear:none; display:block; padding: 2px 1em 0 0; }
+
+input[type=checkbox], input.checkbox {margin: 0px  5px 0px; padding-right:5px }
+
+

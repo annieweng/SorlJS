@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!--
+ <META http-equiv="Content-Type" content="text/html; charset=ISO-8859-5">
+    -->
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" lang="en" ></meta>
+<title>Web Solr</title>
+<link rel="stylesheet" type="text/css"
+	href="ext/resources/css/ext-all.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/solr_ui.css"
+	media="screen" />
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<script type="text/javascript" src="js/solr_ui.js"></script>
+<script type="text/javascript" src="core/Core.js"></script>
+<script type="text/javascript" src="core/AbstractManager.js"></script>
+<script type="text/javascript" src="managers/Manager.jquery.js"></script>
+<script type="text/javascript" src="core/Parameter.js"></script>
+<script type="text/javascript" src="core/ParameterStore.js"></script>
+<script type="text/javascript" src="core/AbstractWidget.js"></script>
+<script type="text/javascript" src="widgets/ResultWidget.js"></script>
+<script type="text/javascript" src="helpers/jquery/ajaxsolr.theme.js"></script>
+<script type="text/javascript" src="js/solr_ui.theme.js"></script>
+<script type="text/javascript" src="js/jquery.livequery.js"></script>
+<script type="text/javascript" src="widgets/jquery/PagerWidget.js"></script>
+<script type="text/javascript" src="core/AbstractFacetWidget.js"></script>
+<script type="text/javascript" src="widgets/TagcloudWidget.js"></script>
+<script type="text/javascript" src="widgets/DateTagcloudWidget.js"></script>
+<script type="text/javascript" src="core/AbstractTextWidget.js"></script>
+<script type="text/javascript" src="ext/ext-all.js"></script>
+<script type="text/javascript" src="widgets/TextWidget.js"></script>
+<script type="text/javascript" src="widgets/CurrentSearchWidget.9.js"></script>
+<script type="text/javascript" src="core/AbstractTextWidget.js"></script>
+<script type="text/javascript" src="helpers/ajaxsolr.support.js"></script>
+<script type="text/javascript" src="helpers/ajaxsolr.theme.js"></script>
+<script type="text/javascript" src="widgets/CountryCodeWidget.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="ext/smoothness/jquery-ui.css" media="screen" />
+<link rel="stylesheet" type="text/css"
+	href="ext/smoothness/ui.theme.css" media="screen" />
+<script type="text/javascript" src="widgets/CalendarWidget.js"></script>
+<script type="text/javascript" src="js/table.js">
+</script>
+
+
+</head>
+<body>
+	<div id="wrap">
+		
+
+	
+
+		<div class="left" id="leftColumn">
+			<h1> Web SOLR</h1>
+
+			<h2>Current Selection</h2>
+			<ul id="selection"></ul>
+
+			<h2 id="searchheader">
+				Search &nbsp;&nbsp;<a href="javascript:toggleFieldView(this)">Advanced
+					Search & Settings &nbsp;<img id="arrowImage"
+					src="images/SideArr.png" width="20px" height="20px" />
+				</a>
+			</h2>
+
+
+			<fieldset>
+				<legend>Search Sources&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="solr-query-syntax.html" target="_blank">Query Syntax</a></legend>
+
+			</fieldset>
+
+
+
+			<ul id="search">
+	
+				<h2>
+					<input type="search" id="query" name="query" width="100"
+						placeholder="Enter Text to Search" /> <img
+						src="images/search.png" onClick="javascript:submitRequest()"
+						TITLE="Click To Apply Changes" margin="0px 0px 0px" width="25"
+						height="25" />
+				</h2>
+
+			</ul>
+
+			<fieldset id="advancedFieldSet" class="prefill">
+
+				<legend>Advance Search Options </legend>
+
+				<ul>
+					<li></li>
+					<label for="filteredquery">Filter Query:</label>
+					<li><a href="javascript:toggleFieldView(this)"> <img
+							TITLE="Hide" width="15px" height="15px" class="submit"
+							src="images/minus.png" /></a></li>
+					<li></li>
+					<li><TEXTAREA name="filteredquery" id="filteredquery" rows="3"
+							cols="29"
+							placeholder="Syntax: Name:value AND|OR Name:[min TO max], hint use 'Auto Add Field' below to add name."></TEXTAREA>
+
+					</li>
+
+
+
+					<label for="searchFields"><em>Auto Add Field: </em></label>
+					<select id="searchFields" prompt="Select Field to search text from"
+						onchange="javascript:updateSearchText(this)">
+
+					</select>
+				</ul>
+				<br />
+				<ul>
+
+					<li><label for="sortType">Sort By </label> <select
+						onchange="updateSortedByState(this)" id="sortfields">
+
+					</select> <select id="sortfieldOrder" onchange="updateSortedByState(this)">
+							<option value="asc">Ascending</option>
+							<option value="desc">Descending</option>
+
+					</select>
+					</li>
+
+					<br />
+					<li class="dateLine"><span class="inst">(YYYY-MM-DD)</span> <label
+						for="StartDate">Start Date</label> <input type="date"
+						id="StartDate" name="StartDate"
+						placeholder="Open Ended Start Date"
+						pattern="2[0-9]{3}-[0-9]{2}-[0-9]{2}"
+						title="Start Date Format: YYYY-MM-DD" onkeyup="updateDateState()"></input>
+					</li>
+					<br />
+					<li class="dateLine"><span class="inst">(YYYY-MM-DD)</span> <label
+						for="EndDate">End Date </label> <input type="date"
+						placeholder="Open Ended End Date"
+						pattern="2[0-9]{3}-[0-9]{2}-[0-9]{2}"
+						title="End Date Format: YYYY-MM-DD" id="EndDate" name="EndDate"
+						onkeyup="updateDateState()"></input></li>
+
+					<br />
+
+					<li class="dateLine"><label for="Rows">Rows </label> <input
+						type="text" min="1" max="100" value="20" id="Rows" name="rows"
+						onkeyup="updateNumRowsByState(this)"></input></li>
+					<br />
+
+				</ul>
+				</br>
+				<ul>
+					<p>
+						<button class="submit" onClick="javascript:submitRequest()"
+							TITLE="Click To Apply Changes" margin="0px 10px 10px 10px">Execute
+							Query</button>
+					</p>
+					</br>
+				</ul>
+				</br>
+			</fieldset>
+
+			<h2>
+			<!-- checked="checked" -->
+				<input type="checkbox" id="facetCheckBox" checked="checked"
+					onchange='handleFacetChange(this);' value="Facet" />Facet
+					
+			</h2>
+                 
+                       
+			
+		</div>
+
+
+
+		<div class="right">
+
+
+			<ul id="pref">
+
+				<li><a href="#">Prefences</a> &raquo;
+					<ul>
+
+					</ul></li>
+
+			</ul>
+
+			<ul id="export">
+				<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+			</ul>
+			<ul id="export">
+				<li><a href="#">Export </a> &raquo;
+					<ul>
+						<li><a href="javascript:exportData('csv')">CSV</a></li>
+
+
+						<li><a href="javascript:exportData('xls')">Excel</a></li>
+					</ul></li>
+
+			</ul>
+			<ul id="export">
+				<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+			</ul>
+			<div id="result">
+
+				<div id="navigation">
+
+					<ul id="pager"></ul>
+
+					<div id="pager-header"></div>
+
+				</div>
+				<div id="docs"></div>
+			</div>
+		</div>
+
+		<div class="clear"></div>
+
+		
+
+	</div>
+
+
+
+
+</body>
+
+</html>

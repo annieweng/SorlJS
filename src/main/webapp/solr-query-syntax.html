@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title> SOLR Query Syntax</title>
+<link rel="stylesheet" href="css/solrQuery.css" type="text/css"
+	media="screen" />
+
+<style media="screen">
+.dean_ch {
+	border: 1px dotted #a0a0a0;
+	font-family: "Courier New", Courier, monospace;
+	background-color: #f0f0f0;
+	color: #00b;
+	margin: 10px 20px
+}
+
+.dean_ch .de1,.dean_ch .de2 {
+	font-weight: normal;
+	background: transparent;
+	color: #000;
+	padding-left: 5px
+}
+
+.dean_ch .kw1 {
+	color: #a1a100
+}
+
+.dean_ch .kw2 {
+	color: #000;
+	font-weight: bold
+}
+
+.dean_ch .kw3 {
+	color: #006
+}
+
+.dean_ch .kw4 {
+	color: #f63333
+}
+
+.dean_ch .co1,.dean_ch .co2,.dean_ch .coMULTI {
+	color: gray
+}
+
+.dean_ch .es0 {
+	color: #003;
+	font-weight: bold
+}
+
+.dean_ch .br0 {
+	color: #6c6
+}
+
+.dean_ch .st0 {
+	color: red
+}
+
+.dean_ch .nu0 {
+	color: #f3f
+}
+
+.dean_ch .me0 {
+	color: #060
+}
+</style>
+
+
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="logo">
+				<h1>
+					<a href="index.html">Web SOLR</a>
+				</h1>
+			</div>
+		</div>
+		<div id="content">
+			<h1>SOLR Query Syntax</h1>
+			<p>Lucene has a custom query syntax for querying its indexes. In
+				SOLR, you're using the standard Lucene query parser.</p>
+			<p>Here are some query examples demonstrating the query syntax.</p>
+			<h2>Keyword matching</h2>
+			<p>Search for word "foo bar". note default joint operation is
+				"AND" for Solr.</p>
+			<div class="java dean_ch">
+				</span>foo bar
+			</div>
+			<p>Search for phrase "foo bar" in the title field.</p>
+			<div class="java dean_ch">
+				title<span class="sy0">:</span><span class="st0">&quot;foo
+					bar&quot;</span>
+			</div>
+
+			<p>Search for word "foo" or "bar" in all text and numeric fields.</p>
+			<div class="java dean_ch">
+				<span class="st0">foo OR bar</span>
+			</div>
+
+
+			<p>Search for exact match "foo bar" in all text and numeric
+				fields.</p>
+			<div class="java dean_ch">
+				<span class="st0">"foo bar"</span>
+			</div>
+
+
+			<p>Search for exact match "foo bar" within 3 words from each
+				other.</p>
+			<div class="java dean_ch">
+				<span class="st0">"foo bar"~<span class="nu0">3</span></span>
+			</div>
+			<p>Note that for proximity searches, exact matches are proximity
+				zero, and word transpositions (bar foo) are proximity 1.</p>
+
+
+			<h2>use of Advance Search & setting in Solr</h2>
+			<p>Filter query allow user enter multiple criteria for search. In
+				general, everything that can be done in Filter query, can also be
+				done in regular search box. however Filter query is cache to make
+				overall query time faster. When deal with multiple criteria, use of
+				Filter query in advance search are recommended.</p>
+
+			<p>Search for phrase "foo bar" in the title field AND the phrase
+				"quick fox" in the body field.</p>
+			<div class="java dean_ch">
+				title<span class="sy0">:</span><span class="st0">&quot;foo
+					bar&quot;</span> AND body<span class="sy0">:</span><span class="st0">&quot;quick
+					fox&quot;</span>
+			</div>
+			<p>Search for either the phrase "foo bar" in the title field AND
+				the phrase "quick fox" in the body field, or the word "fox" in the
+				title field.</p>
+			<div class="java dean_ch">
+				<span class="br0">&#40;</span>title<span class="sy0">:</span><span
+					class="st0">&quot;foo bar&quot;</span> AND body<span class="sy0">:</span><span
+					class="st0">&quot;quick fox&quot;</span><span class="br0">&#41;</span>
+				OR title<span class="sy0">:</span>fox
+			</div>
+			<p>Search for word "foo" and not "bar" in the title field.</p>
+			<div class="java dean_ch">
+				title<span class="sy0">:</span>foo <span class="sy0">-</span>title<span
+					class="sy0">:</span>bar
+			</div>
+			<h2>Wildcard matching</h2>
+			<p>Search for any word that starts with "foo" in all field.</p>
+			<div class="java dean_ch">
+				text_rev<span class="sy0">:</span>foo<span class="sy0">*</span>
+			</div>
+			<p>note in SolrJs, we reverse index all text that have maximum length of 100 to text_rev column
+				to handle quicker response time with wild card query. it's recommended to append <b>text_rev:</b> to begining of query to speed up query card query.
+				when there is no match from text_rev, then you could try it with all text fields by omit "text_rev:". </p>
+
+			<p>Search for any word that starts with "foo" in the title field.</p>
+			<div class="java dean_ch">
+				title<span class="sy0">:</span>foo<span class="sy0">*</span>
+			</div>
+			<p>Search for any word that starts with "foo" and ends with bar
+				in the title field.</p>
+			<div class="java dean_ch">
+				title<span class="sy0">:</span>foo<span class="sy0">*</span>bar
+			</div>
+			<p>
+				Note that Lucene doesn't support <b>using a * symbol as the
+					first character of a search.</b>
+			</p>
+
+			<h2>Range searches</h2>
+			<p>Range Queries allow one to match documents whose field(s)
+				values are between the lower and upper bound specified by the Range
+				Query.</p>
+			<p>
+				In SolrJS, we have predefine <b>year_text</b> as field name for
+				all date type field, and <b>money_text</b> as field name for all
+				money data type field.
+			</p>
+
+			<p>Search for any record that involve with money and have amount
+				great than 9,999</p>
+			<div class="java dean_ch">
+				money_text<span class="sy0">:</span><span class="br0">&#91;</span><span
+					class="nu0">9999</span> TO <span class="nu0">*</span><span
+					class="br0">&#93;</span>
+			</div>
+
+			<p>Search for any record that involve with date time and have
+				date in year 2002</p>
+			<div class="java dean_ch">
+				date_text<span class="sy0">:</span><span class="br0">&#91;</span><span
+					class="nu0">20020101</span> TO <span class="nu0">20021230</span><span
+					class="br0">&#93;</span>
+			</div>
+
+			<p>Search for field transationDate from year 2002 to NOW</p>
+			<div class="java dean_ch">
+				transactionDate<span class="sy0">:</span><span class="br0">&#91;</span><span
+					class="nu0">20020101</span> TO <span class="nu0">NOW</span><span
+					class="br0">&#93;</span>
+			</div>
+
+
+
+
+			<h2>Boosts</h2>
+			<p>Query-time boosts allow one to specify which terms/clauses are
+				"more important". The higher the boost factor, the more relevant the
+				term will be, and therefore the higher the corresponding document
+				scores.</p>
+			<p>A typical boosting technique is assigning higher boosts to
+				title matches than to body content matches:</p>
+			<div class="java dean_ch">
+				<span class="br0">&#40;</span>title<span class="sy0">:</span>foo OR
+				title<span class="sy0">:</span>bar<span class="br0">&#41;</span><span
+					class="sy0">^</span><span class="nu0">1.5</span> <span class="br0">&#40;</span>body<span
+					class="sy0">:</span>foo OR body<span class="sy0">:</span>bar<span
+					class="br0">&#41;</span>
+			</div>
+			<p>
+				You should carefully examine <b>explain</b> output to determine the
+				appropriate boost weights.
+			</p>
+
+
+			<h2>Other query syntax</h2>
+
+			<style>
+tt {
+	font-family: monospace
+}
+</style>
+			<span id="line-33" class="anchor" />
+			</p>
+			<ul>
+				<li>
+					<p class="line862">
+						Range queries
+						<tt>[a TO z]</tt>
+						, prefix queries
+						<tt>a*</tt>
+						, and wildcard queries
+						<tt>a*b</tt>
+						are constant-scoring (all matching documents get an equal score).
+						The scoring factors tf, idf, index boost, and coord are not used.
+						There is no limitation on the number of terms that match (as there
+						was in past versions of Lucene). <span id="line-34" class="anchor" />
+					</p>
+					<ul>
+						<li>
+							<p class="line862">
+								Lucene 2.1 has also switched to use ConstantScoreRangeQuery for
+								its range queries. <span id="line-35" class="anchor" />
+							</p>
+						</li>
+					</ul>
+				</li>
+				<li><p class="line862">
+						A
+						<tt>*</tt>
+						may be used for either or both endpoints to specify an open-ended
+						range query. <span id="line-36" class="anchor" />
+					</p>
+					<ul>
+						<li><p class="line891">
+								<tt>field:[* TO 100]</tt>
+								finds all field values less than or equal to 100 <span
+									id="line-37" class="anchor" />
+							</p></li>
+						<li><p class="line891">
+								<tt>field:[100 TO *]</tt>
+								finds all field values greater than or equal to 100 <span
+									id="line-38" class="anchor" />
+							</p></li>
+						<li><p class="line891">
+								<tt>field:[* TO *]</tt>
+								matches all documents with the field <span id="line-39"
+									class="anchor" />
+							</p></li>
+					</ul></li>
+				<li>Pure negative queries (all clauses prohibited) are allowed.
+					<span id="line-40" class="anchor" />
+				<ul>
+						<li><p class="line891">
+								<tt>-inStock:false</tt>
+								finds all field values where inStock is not false <span
+									id="line-41" class="anchor" />
+							</p></li>
+						<li><p class="line891">
+								<tt>-field:[* TO *]</tt>
+								finds all documents without a value for field <span id="line-42"
+									class="anchor" />
+							</p></li>
+					</ul>
+				</li>
+				
+		</div>
+
+	</div>
+
+
+</body>
+</html>
