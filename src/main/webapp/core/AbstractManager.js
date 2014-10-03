@@ -20,7 +20,7 @@ AjaxSolr.AbstractManager = AjaxSolr.Class.extend(
    * @default "http://localhost:8983/solr/"
    */
    
-	  ALLsolrUrl: 'http://10.1.70.233:8080/solr/BSA/select',
+	  ALLsolrUrl: 'http://localhost:8983/solr/',
   /**
    * If we want to proxy queries through a script, rather than send queries
    * to Solr directly, set this field to the fully-qualified URL of the script.
