@@ -5,6 +5,7 @@ var Manager;
     $(function() {
         Manager = new AjaxSolr.Manager({
             //main solr UrL
+            //'http://10.1.70.200:8080/solr/BSA/select'
             ALLsolrUrl: 'http://localhost:8080/solr/example/select'
                     //uncomment this, if we want to have proxy through local web container. this is needed for
                     //export function to work.
@@ -41,7 +42,7 @@ var Manager;
 
             //dynamically create a html element for each tag cloud navigation
             var txt = fields[i].replace(/\_/g, ' ');
-            var $label = $("<h2>", {id: fields[i] + '_label', text: 'By ' + txt});
+            var $label = $("<h2>", {id: fields[i] + '_label', text: 'By ' + txt.replace(/text/g, '')});
             $("#leftColumn").append($label);
             var $div = $("<div>", {id: fields[i], class: "tagcloud"});
 
@@ -149,12 +150,12 @@ var Manager;
         if ($(location).attr('search').length > 1)
         {
             var sPageURL = $(location).attr('search').substring(1);
-            console.log("location search: " + sPageURL);
+           // console.log("location search: " + sPageURL);
             var sURLVariables = sPageURL.split('&');
             for (var i = 0; i < sURLVariables.length; i++)
             {
                 var sParameterName = sURLVariables[i].split('=');
-                console.log("add by value" + sParameterName[0] + " " + sParameterName[1]);
+             //   console.log("add by value" + sParameterName[0] + " " + sParameterName[1]);
                 Manager.store.addByValue(sParameterName[0], sParameterName[1]);
 
 

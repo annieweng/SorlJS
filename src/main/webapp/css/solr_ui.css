@@ -335,16 +335,33 @@ a {
 
 
 
+/* visited link */
+a:visited {
+    color: #3399FF;
+}
+
+/* mouse over link */
 a:hover {
-   /* background-color:#6998f0;
+   /* color: #FF00FF;*/
+    text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+    color: #0000FF;
+}
+/*
+a:hover {
+   background-color:#6998f0;
 	color: #ffffff;
-   */
-    
+   
+
+
 	  font-weight: bold;
           
 
 }
-
+*/
 
 #wrap2 {
   width: 100%;
@@ -452,13 +469,13 @@ tr:nth-child(odd) { background-color :
 tr:nth-child(even) { background-color :
                          /*#dde;*/
    #F8F8F8;}
-tr:hover { background-color :#6998f0;
-           /*
-            font-weight:bold;
-           */
-           color: #fbfbfb;
+tr:hover { background-color :#ccc;
+        
      }
 
+     
+    
+     
 /* original*/
 /*
 th{
@@ -549,14 +566,15 @@ td{
 }
 #result a {
   margin-right: 5px;
-    color: blue;
-    
+   
+    color: #0000FF;
   text-decoration: none;
   
 }
 
 #result a:hover{
-    color: white; 
+   
+    text-decoration:  underline;
 }
 .search ul
 {
@@ -601,6 +619,13 @@ td{
 #pager li{
 	 list-style-type: none;
   display: inline;
+}
+
+#navigation span{
+ 
+    clear:none;  padding: 8px;
+    
+    font-size: 12px;
 }
 
 .links li,
@@ -839,8 +864,8 @@ a.more{
 }
 
 a.more:hover {
-	background-color: #FF3300;
-	color: #FFFFFF;
+	
+   text-decoration: underline;
 }
 
 a.showDoc{
@@ -849,13 +874,13 @@ a.showDoc{
 
 	font-size: 12px;
     font-weight:bold;
-    color: #000000;
+    color: #3399FF;
 
 }
 
 a.showDoc:hover {
-	background-color: #FF3300;
-	color: #FFFFFF;
+  
+        text-decoration: underline;
 }
 
 .dropdown{
@@ -881,3 +906,17 @@ label { float:left; clear:none; display:block; padding: 2px 1em 0 0; }
 input[type=checkbox], input.checkbox {margin: 0px  5px 0px; padding-right:5px }
 
 
+#actions{width: 60px; font-size: 12px}
+#actions option{width: 40px;}
+
+a.summary{
+     font-size: 13px;
+      font-weight:bold;
+}
+/*
+.summary{
+    font-size: 14px;
+    font-family:  inherit;
+     font-weight:    bold;
+}
+*/
