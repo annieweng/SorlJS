@@ -53,7 +53,7 @@
 
 					}
 					for(var y in output){
-						if(output[y]>0)
+						if(Y!==undefined && output[y]>0)
 
 						{
 							objectedItems.push({
@@ -97,7 +97,7 @@
 
 					}
 					for(var y in output){
-						if(output[y]>0)
+						if(Y!==undefined && output[y]>0)
 
 						{
 							objectedItems.push({

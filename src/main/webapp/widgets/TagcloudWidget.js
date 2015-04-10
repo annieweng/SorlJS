@@ -83,7 +83,7 @@
 			}
 			if(!processed)
 			{
-				if ( this.field != 'date_text' && 
+				if ( this.field != this.manager.dateField && 
 						 this.field!='money_text') {
 
 					if (this.manager.response.facet_counts.facet_fields[this.field] == undefined) {
@@ -101,7 +101,7 @@
 				$(this.target+"_label").show();
 
 
-				if (this.field == 'date_text' ) {
+				if (this.field === this.manager.dateField  ) {
 
 					for ( var facet in this.manager.response.facet_counts.facet_dates[this.field]) {
 						var count = parseInt(this.manager.response.facet_counts.facet_dates[this.field][facet]);
@@ -176,13 +176,13 @@
 			$(this.target).empty();
 
 			for ( var i = 0, l = objectedItems.length; i < l; i++) {
-				var facet = objectedItems[i].facet.toString().toUpperCase();
+				var facet = objectedItems[i].facet.toString();
 
 				var fl=objectedItems[i].field;
 
 
 				$(this.target).append(
-						AjaxSolr.theme('tag', facet,
+						AjaxSolr.theme('tag', facet.toUpperCase(),
 								parseInt(objectedItems[i].count
 										/ maxCount * 10.0),
 										objectedItems[i].count,

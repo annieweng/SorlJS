@@ -27,7 +27,7 @@
                 self.doRequest();
                 return false;
             };
-       },
+        },
         headerHandler: function(header_field, header_order) {
             var self = this;
             return function() {
@@ -35,7 +35,7 @@
                 self.manager.store.remove('sort');
                 self.manager.store.addByValue('sort', header_field + ' ' + header_order);
 
-                if (header_order == 'desc')
+                if (header_order === 'desc')
                 {
                     sortingOrder = 'asc';
                 }
@@ -47,14 +47,14 @@
 
                 return false;
             };
-      },
+        },
         afterRequest: function() {
             var theInstance = this;
             //update current view to last setted preferences
             var currentview = localStorage.getItem("view");
-            if (currentview&& currentview !== ($("#viewButton").attr('value')))
+            if (currentview && currentview !== ($("#viewButton").attr('value')))
             {
-            //    alert(currentview);
+                //    alert(currentview);
                 //console.trace("currentview: "+currentview);
                 if (currentview === 'table')
                 {
@@ -80,66 +80,44 @@
         init: function() {
 
             var theInstance = this;
-            $('a.more').livequery(function() {
-                $(this).toggle(function() {
-                    //  $(this).siblings('span:first').hide();
-                    $(this).parent().find('span').show();
-                    $(this).text('hide..');
-                    return false;
-                }, function() {
-                    //$(this).siblings('span:first').show();
-                    $(this).parent().find('span').hide();
-                    $(this).text('show more..');
-                    return false;
-                });
-            });
-
-
-
-            $('a.showDoc').livequery(function() {
-
-
-                $(this).toggle(function() {
-
-                    showDocument($(this).parent().find('span').html());
-
-                    return false;
-                }, function() {
-                    showDocument($(this).parent().find('span').html());
-
-                    return false;
-                });
-
-
-            });
-
-            //update to table td checkbox to match header
-            $('#selectAll').live('click', (function(e) {
-                var table = $(e.target).closest('table');
-                $('td input:checkbox', table).prop('checked', this.checked);
-                if (this.checked === true)
+            $('div').on('click', 'a.more', function(event) {
+                disabledEventPropagation(event);
+                $(this).siblings('span.more').toggle();
+                if ($(this).html().indexOf('more') > 0)
                 {
-                    $('#actions').removeAttr("disabled");
+                    $(this).text('Hide detail..');
                 }
                 else
                 {
-                    $('#actions').prop("disabled", true);
+                    $(this).text('Show more..');
+
                 }
-            }));
+               
+                return false;
+               
+            });
 
-            $('#actions').live('change', (function(e) {
 
-                if (this.value === 'export')
-                {
-                    fnTextReport(e);
 
-                    //fnExcelReport(e);
-                }
 
-            }));
 
-            $("#viewButton").live('click', function() {
-              //$(this).attr('src', 'images/ajax-loader.gif');
+
+            $('div').on('click', 'a.showDoc', function(event) {
+                disabledEventPropagation(event);
+                //showDocument($(this).parent().find('span:last').html());
+                var dochtml=$(this).siblings('span.doc').html();
+                if(dochtml!==undefined)
+                    showDocument(dochtml);
+                else
+                   showDocument($(this).parent().find('span:last').html());
+                return false;
+
+            });
+
+
+
+            $("#viewButton").on('click', function() {
+                //$(this).attr('src', 'images/ajax-loader.gif');
                 if ($(this).attr('value') === 'table')
                 {
                     $(this).attr("value", 'list');
@@ -159,7 +137,7 @@
             });
 
 
-            $('a.summary').live("click", function() {
+            $('div').on("click", 'a.summary', function() {
 
 
 
@@ -169,8 +147,112 @@
 
             });
 
+
+
+
+
+
         }
     });
+
+    /*
+     * 
+     * @param {type} e event
+     * @param {type} data  
+     * @param {type} theInstance
+     * @returns create jstree structures that are group by current_bsa_identifier,  only if current target is root node, and has no children yet
+     */
+    function getChildrenNodes(e, data, theInstance, openNode)
+    {
+
+        var inst = data.instance;
+        if (data.selected.length)
+        {
+            var node = inst.get_node(data.selected[0]);
+            //the the group field name 
+            var fieldName = $("#" + node.id).parent().closest('div').attr('name');
+
+            //if this node root node, and has no children, go ahead populate rest of records corresponding to current bsa identifier
+            if (inst.get_parent(node) === '#' && node.children.length === 0)
+            {
+                var param = 'json.nl=map&group=true&group.field=' + fieldName + '&group.main=true&group.limit=30';
+                if (Manager.treeSortByFieldName != '')
+                {
+                    param += '&sort=' + Manager.treeSortByFieldName + ' desc';
+                }
+                var params = [param];
+                params.push('q=' + fieldName + ':' + node.text);
+
+                //call back 
+                var callback = function(response) {
+
+                    //go through each document, add record number, then content to each record number to the tree
+                    for (var i = 0, l = response.response.docs.length; i < l; i++) {
+                        var uniq_id = data.node.id;
+
+                        //if we have a sub tree category, go ahead group data by the treeCategoryFieldName
+                        if (Manager.treeCategoryFieldName !== '')
+                        {
+                            var category = response.response.docs[i][Manager.treeCategoryFieldName];
+                            //replace all ingle white space character, including space, tab, form feed, line feed
+                            category = category.replace(/\s/g, '_');
+                            uniq_id = uniq_id + "_" + category;
+                            //if category doesn't exist it, go ahead create one.
+                            if (!inst.get_node(uniq_id))
+
+                            {
+                                inst.create_node(node, {text: category, id: uniq_id}, "last", function() {
+                                    //alert("created");
+                                }, true);
+
+                            }
+
+                        }
+                        //create the leaf for each document
+
+                        var parentNode = $("#" + uniq_id);
+
+                        var content = AjaxSolr.theme("treeList", response.response.docs[i]);
+                        // console.log("content "+i+": "+content+"\n");
+                        inst.create_node(parentNode, {text: content, id: uniq_id + "_" + i}, "last", function() {
+                            //alert("created");
+                        }, false);
+
+                        if (openNode)
+                        {
+                            inst.open_node(parentNode);
+                        }
+
+                    }
+
+
+
+
+
+                };
+                if (theInstance.manager.proxyUrl) {
+
+
+                    jQuery.getJSON(theInstance.manager.proxyUrl + '?' + theInstance.manager.currentSolrUrl + ';' + params.join('&') + '&wt=json&json.wrf=?',
+                            {}, callback);
+
+                }
+                else {
+
+                    var jointChar = '?';
+                    if (theInstance.manager.currentSolrUrl.indexOf("?") > 0)
+                    {
+                        jointChar = '&';
+                    }
+
+
+                    jQuery.getJSON(theInstance.manager.currentSolrUrl + jointChar + params.join('&') + '&wt=json&json.wrf=?', {}, callback);
+                }
+            }
+
+        }
+
+    }
 
     /*
      * 
@@ -184,6 +266,7 @@
 
 
         $(theInstance.target).append(AjaxSolr.theme(view, theInstance.manager.response.response.docs, theInstance.manager.response.highlighting));
+
 
         if (view === 'table')
         {
@@ -227,6 +310,7 @@
                 }));
 
             });
+
             /*
              $('a.innerlink').click(function(e){
              alert("event clicked in innerlink");
@@ -246,11 +330,12 @@
             var waitForLoad = function() {
 
 
-                if (resizableTables != "undefined") {
+                if (resizableTables !== undefined) {
 
 
 
                     ResizableColumns();
+
 
 
                 } else {
@@ -261,6 +346,92 @@
             window.setTimeout(waitForLoad, 1000);
 
         }
+        else
+        {
+
+
+
+
+            $('.idtrees').
+                    on("check_node.jstree", function(e, data)
+            {
+
+                e.preventDefault();
+
+                var inst = data.instance;
+                if (data.selected.length)
+                {
+                    var node = inst.get_node(data.selected[0]);
+
+                    if (inst.get_parent(node) === '#' && node.children.length === 0)
+                            //  && inst.get_children_dom(node).length === 0)
+                            {
+
+                                getChildrenNodes(e, data, theInstance, true);
+                            }
+                    else
+                    {
+                        inst.open_node(data.node);
+                        var childrens = inst.get_children_dom(data.node);
+                        for (var i = 0; i < childrens.length; i++)
+                        {
+
+                            inst.open_node(childrens[i]);
+
+                        }
+                    }
+                }
+            }
+
+
+            ).
+                    on("uncheck_node.jstree", function(e, data)
+            {
+                e.preventDefault();
+
+                var inst = data.instance;
+
+                var childrens = inst.get_children_dom(data.node);
+                for (var i = 0; i < childrens.length; i++)
+                {
+
+
+                    inst.close_node(childrens[i]);
+
+                }
+                inst.close_node(data.node);
+            }
+
+            )
+
+                    .jstree({
+                'core': {check_callback: true
+                            //,expand_selected_onload: true
+
+                },
+                "checkbox": {
+                    keep_selected_style: false,
+                    tie_selection: false,
+                    whole_node: true},
+                /*
+                 "types" : {
+                 "default" : {
+                 "icon" : "treegrid-expander-expanded treegrid-expander-collapsed"
+                 },
+                 "idtrees" : {
+                 "icon" : "treegrid-expander-expanded treegrid-expander-collapsed"
+                 }
+                 },
+                 */
+                //, "contextmenu","search", , "unique", 
+                "plugins": ["dnd", "types", "wholerow", "sort", "state", "checkbox"]
+            })
+
+                    ;
+
+
+        }
+
 
     }
 
@@ -281,10 +452,7 @@
             tab_text = tab_text + "</tr>";
         });
         tab_text += "</tbody></table>";
-        console.log(tab_text);
-        //test
-        // tab_text="<table><thead><tr><th>header1</th><th>header2</th></tr></thead><tbody><tr><td>1</td><td>2</td></tr></tbody></table>"
-        //  window.open('data:application/vnd.ms-excel,' +tab_text);
+
 
         window.open('data:text/html;charset=utf-8,' + encodeURIComponent(tab_text));
 

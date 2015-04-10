@@ -41,9 +41,39 @@ AjaxSolr.AbstractManager = AjaxSolr.Class.extend(
    * @default "select"
    */
   servlet: 'select',
- facetFields: [],
+  
+    /**
+   * facet fields to be show in the navigation side
+   */
+   facetFields: [],
+ 
+ /**
+  * fields that return from solr server result that should be enabled with facet link 
+  * it's used in solr_ui_theme.js
+  */
+  facetLinkEnableFields: [],
+  /**
+   * tree view enabled fields. when drill down/ group by feature are designed on the fields. ie phone number, ssn
+   */
+    treeViewEnabledFields:  [],  
+    
+    /**
+     * the key field to group tree by,
+     */
+    treeCategoryFieldName: '',
+    /**
+     * the date field name
+     */
+    dateField: 'date',
+    /**
+     * sort the tree , group by result by this field
+     */
+    treeSortByFieldName: '',
    currentShardUrl: null,
   currentSolrUrl: null,
+  
+
+ 
    
   /**
    * The most recent response from Solr.

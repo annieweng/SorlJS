@@ -1,11 +1,11 @@
 (function($) {
 
-/**
- * 
- * @param {type} docs
- * @param {type} highlighting
- * @returns {String} list view of content
- */
+    /**
+     * 
+     * @param {type} docs
+     * @param {type} highlighting
+     * @returns {String} list view of content
+     */
     AjaxSolr.theme.prototype.list = function(docs, highlighting)
     {
         var str = "<ul>";
@@ -13,13 +13,24 @@
 
             str += template(docs[i], highlighting);
         }
-        str+="</ul>";
+        str += "</ul>";
         // console.log(str);
         return str;
-       
-    }  ,
+
+    },
+            AjaxSolr.theme.prototype.treeList = function(doc)
+    {
+
+        var str = '';
+        str = template_tree(doc);
+
+        // console.log(str);
+        return str;
+
+    },
             AjaxSolr.theme.prototype.table = function(docs, highlighting)
     {
+
 
 
 
@@ -28,7 +39,7 @@
         var sorted_entries = Manager.store.get("sort").value;
         var imagename = "unsorted";
         var order = 'asc';
-        if (sorted_entries != null)
+        if (sorted_entries !== null)
         {
 
             if (sorted_entries.endsWith("desc"))
@@ -43,7 +54,6 @@
                 order = "desc";
             }
         }
-
 
 
 
@@ -73,7 +83,7 @@
         hightlightedKey.sort(function(a, b) {
             a = a.toLowerCase();
             b = b.toLowerCase();
-            if (a == b)
+            if (a === b)
                 return 0;
             if (a > b)
                 return 1;
@@ -84,18 +94,7 @@
         var k = 0;
 
         str += '<thead><tr>';
-        /*
-        //add bookmark check box
-        str += '<th class="bookmark" nowrap="nowarp">' +
-                ' <select id="actions" disabled="true" >'
-                + '<option id="prompt">Select</option>'
-                + '<option value="save">save</option><option value="export">export</option>' +
-                '</select>' 
-                +
-                '<input  type="checkbox" id ="selectAll"/>' +
-                '</th>';
 
-*/
         //going through each line
         //go ahead clear the preferences
         $("#pref li ul").empty();
@@ -106,18 +105,16 @@
                     + '<a  href="javascript:tablePrefHandler(\'' + hightlightedKey[j] + '\')" name="' + hightlightedKey[j] + '">'
 
                     + hightlightedKey[j] + '</a></li>');
-            //'<input type="checkbox" name="'+hightlightedKey[j]+
-            //" onchange="javascript:CheckboxHandler(this)"
-            //'" checked="true" />
 
 
-            if (sorted_entries != null && (sorted_entries.indexOf(hightlightedKey[j]) < 0))
+
+            if (sorted_entries !== null && (sorted_entries.indexOf(hightlightedKey[j]) < 0))
             {
 
                 str += '<th class="' + hightlightedKey[j] + '">';
                 //if we already have facet value for the column, go ahead display it
-                if (Manager.response.facet_counts != undefined &&
-                        Manager.response.facet_counts.facet_fields[hightlightedKey[j]] != undefined)
+                if (Manager.response.facet_counts !== undefined &&
+                        Manager.response.facet_counts.facet_fields[hightlightedKey[j]] !== undefined)
                 {
 
                     var cfilter = getCurrentFilter(cname).replace(/\"/g, '');
@@ -126,7 +123,7 @@
 
 
                         str += '<option value="' + facet + '"';
-                        if (cfilter == facet)
+                        if (cfilter === facet)
                         {
                             str += 'selected="selected"';
                         }
@@ -149,8 +146,8 @@
 
                 str += '<th   class="' + hightlightedKey[j] + '">';
                 //if we already have facet value for the column, go ahead display it
-                if (Manager.response.facet_counts != undefined &&
-                        Manager.response.facet_counts.facet_fields[hightlightedKey[j]] != undefined)
+                if (Manager.response.facet_counts !== undefined &&
+                        Manager.response.facet_counts.facet_fields[hightlightedKey[j]] !== undefined)
                 {
                     var cfilter = getCurrentFilter(hightlightedKey[j]).replace(/\"/g, '');
 
@@ -159,7 +156,7 @@
 
 
                         str += '<option value="' + facet + '"';
-                        if (cfilter == facet)
+                        if (cfilter === facet)
                         {
                             str += 'selected="selected"';
                         }
@@ -194,7 +191,7 @@
                 var columnValue = String(highlightValue[columnName]);
                 //console.log("in get hightline:"+ columnName+": " +columnValue);
                 //only replace content if value doesn't started with embeded >                       	
-                if (columnValue.indexOf(">") != 0)
+                if (columnValue.indexOf(">") !== 0)
                 {
                     //check if highlight field from solr is sorter than original. solr have bug to trancate the original text. 
                     //have to do manual merge here
@@ -258,7 +255,7 @@
 
 
 
-            if (as == bs)
+            if (as === bs)
                 return 0;
             if (as > bs)
                 return 1;
@@ -300,18 +297,15 @@
             //add column to the preference menu
             $("#pref li ul").append('<li><a href="javascript:tablePrefHandler(\'' + cname + '\')"  name="' + cname + '">'
                     + cname +
-                    //'<input type="checkbox" name="'+cname+
-                    // onchange="javascript:CheckboxHandler(this)"
-                    //'" checked="true" />
                     '</a></li>');
 
-            if (sorted_entries != null && (sorted_entries.indexOf(cname) < 0))
+            if (sorted_entries !== null && (sorted_entries.indexOf(cname) < 0))
             {
 
                 str += '<th  class="' + cname +
                         '">';
-                if (Manager.response.facet_counts != undefined &&
-                        Manager.response.facet_counts.facet_fields[cname] != undefined)
+                if (Manager.response.facet_counts !== undefined &&
+                        Manager.response.facet_counts.facet_fields[cname] !== undefined)
                 {
                     var cfilter = getCurrentFilter(cname).replace(/\"/g, '');
 
@@ -322,7 +316,7 @@
 
 
                         str += '<option value="' + facet + '"';
-                        if (cfilter == facet)
+                        if (cfilter === facet)
                         {
                             str += 'selected="selected"';
                         }
@@ -349,8 +343,8 @@
 
                 str += '<th  class="' + cname + '">';
                 //if we already have facet value for the column, go ahead display it
-                if (Manager.response.facet_counts != undefined &&
-                        Manager.response.facet_counts.facet_fields[cname] != undefined)
+                if (Manager.response.facet_counts !== undefined &&
+                        Manager.response.facet_counts.facet_fields[cname] !== undefined)
                 {
                     var cfilter = getCurrentFilter(cname).replace(/\"/g, '');
 
@@ -359,7 +353,7 @@
 
 
                         str += '<option value="' + facet + '"'
-                        if (cfilter == facet)
+                        if (cfilter === facet)
                         {
                             str += 'selected="selected"';
                         }
@@ -400,9 +394,8 @@
 
 
             str += '<tr onclick="javascript:showTr(this, event)">';
-            //add bookmark check box
-           // str += '<td class="bookmark"><input type="checkbox" id ="bookmarkCheckbox"/></td>';
-          
+
+
             //store the row's data as a html in last column, used to create a document view on click
             var tiledItem = '<div>';
 
@@ -413,7 +406,8 @@
                 if (pValue && pValue.length > 0)
                 {
                     // console.log("nonempty value");
-                    tiledItem += '<p><strong>' + hightlightedKey[j] + ': </strong>' + pValue + '</p>';
+                    tiledItem += '<p><strong>' + hightlightedKey[j] + ': </strong>' 
+                            + AjaxSolr.theme.prototype.printValue(docs[i][hightlightedKey[j]], query, hightlightedKey[j], false) + '</p>';
                 }
             }
             for (j = 0; j < key.length; j++) {
@@ -422,12 +416,12 @@
                 if (pValue && pValue.length > 0)
                 {
                     // console.log("nonempty value");
-                    tiledItem += '<p><strong>' + key[j] + ': </strong>' + pValue + '</p>';
+                    tiledItem += '<p><strong>' + key[j] + ': </strong>' + AjaxSolr.theme.prototype.printValue(docs[i][key[j]], query, key[j], false) + '</p>';
                 }
 
             }
             tiledItem += '</div>';
-            str += '<td  style="display:none;">' + tiledItem + '</td>';
+            str += '<td  style="display:none;" class="doc">' + tiledItem + '</td>';
 
             str += '</tr>';
 
@@ -507,86 +501,276 @@
 
     }
     function template(doc, highlighting) {
-
+        //hidden tiled view in document window, when show detail, or sumary link is clicked
         var tiledItem = '<div>';
-        
-        var content="<li><div>";
+
+        var content = "<li><div class=\"record\">";
+        //list all highlighted feilds
         var hightlightedKey = new Array();
+
+        //all other keys
         var key = new Array();
+
+        //maintain a list of tre vieww enabled fields
+        var treeViewEnabledField_key = new Array();
         var h = 0;
-        var dateFound=false;
-         content+="<a class='summary' >";
+        var dateFound = false;
+        content += "<a class='summary' >";
         var query = Manager.store.get("q").value;
-        for (var i in highlighting)
+
+
+
+        //go through highlighting key fields, and list them first in the record view
+        if (highlighting)
         {
-            for (var columnName in highlighting[i])
+            for (var i in highlighting)
             {
-                //ends with a date time type
-                if((!dateFound) &&(columnName.match(/\_tdt$/)|| columnName.indexOf('date'))>=0)
-                    {
-                        var dt=doc[columnName];
-                        if(dt.length=7)
-                            {
-                                content+="<p> <pre> Date/Cycle: "+dt+ "  From Source "+doc['source_nm']+"</pre></p>"
-                            }
-                            else
-                                {
-                                content+='<p><pre>'+ dt+"  From Source "+doc['source_nm']+'</pre></p>';
-                                }
-                        dateFound=true;
-                    }
-                if (hightlightedKey.indexOf(columnName, 0) < 0)
+                for (var columnName in highlighting[i])
                 {
-                    //       console.log("columnName is"+columnName+" assign hightlightedKey to"+h);
-                    hightlightedKey[h++] = columnName;
+                    //ends with a date time type
+                    if ((!dateFound) && (columnName.match(/\_tdt$/) || columnName.indexOf('date')) >= 0)
+                    {
+                        var dt = doc[columnName];
+                        if (doc['source_nm']!==undefined )
+                        {
+                            content += "<h2>  " + dt + "  From Source " + doc['source_nm'] + "</h2>";
+                        }
+                        else if(doc['title']!==undefined)
+                        {
+                            content += '<h2>' + dt + "  " + doc['title'] + '</h2>';
+                        }
+                        else
+                            {
+                                 content += '<h2>'+dt+'</h2>';
+                            }
+                        dateFound = true;
+                    }
+                    if (hightlightedKey.indexOf(columnName, 0) < 0)
+                    {
+                        //       console.log("columnName is"+columnName+" assign hightlightedKey to"+h);
+                        hightlightedKey[h++] = columnName;
+                    }
+
+
+
                 }
-               
+            }
+            hightlightedKey.sort(function(a, b) {
+                a = a.toLowerCase();
+                b = b.toLowerCase();
+                if (a === b)
+                    return 0;
+                if (a > b)
+                    return 1;
+                return -1;
+            });
+        }
+
+
+
+        var k = 0;
+        //populate tre view enable Fields keys
+        for (var index in doc) {
+           for (var i = 0; i < Manager.treeViewEnabledFields.length; i++)
+            {
+                if (Manager.treeViewEnabledFields[i] === index)
+                {
+                   
+                    treeViewEnabledField_key[k++] = index;
+                    
+                    
+                }
+            }
+        }
+            k = 0;
+        for (var index in doc) {
+
+            
+            //check for list of tree view enable fields, and list them first.
+            var notInTreeView = treeViewEnabledField_key.indexOf(index, 0)<0;
+            
+
+            if (notInTreeView && index != "SOLR_UUID" && index != '_version_' &&
+                    hightlightedKey.indexOf(index, 0) < 0)
+            {
+                key[k++] = index;
+                //ends with a date time type
+                if ((!dateFound) && (index.match(/\_tdt$/) || index.indexOf('date') >= 0))
+                {
+                    dateFound = true;
+                    var dt = doc[index];
+                    if (doc['source_nm']!==undefined )
+                        {
+                            content += "<h2> " + dt + " Source: " + doc['source_nm'] + "</h2>";
+                        }
+                        else if(doc['title']!==undefined)
+                        {
+                            content += '<h2>' + dt + "  " + doc['title'] + '</h2>';
+                        }
+                        else
+                            {
+                                 content += '<h2>'+dt+'</h2>';
+                            }
+                }
+
+            }
+
+
+
+
+        }
+
+        key.sort(function(as, bs) {
+
+            as = as.toLowerCase();
+            bs = bs.toLowerCase();
+            //put digits as higher order than alpha
+            if ((as.charAt(0) >= '0' && as.charAt(0) <= '9') &&
+                    (bs.charAt(0) >= 'a' && bs.charAt(0) <= 'z'))
+            {
+                return 1;
+            }
+            if ((bs.charAt(0) >= '0' && bs.charAt(0) <= '9') &&
+                    (as.charAt(0) >= 'a' && as.charAt(0) <= 'z'))
+            {
+                return -1;
+            }
+
+
+            if (as == bs)
+                return 0;
+            if (as > bs)
+                return 1;
+            return -1;
+
+        });
+
+
+
+        for (j = 0; j < hightlightedKey.length; j++) {
+            var pValue = AjaxSolr.theme.prototype.printValue(doc[hightlightedKey[j]], query, hightlightedKey[j], false);
+
+
+            if (pValue && pValue.length > 0)
+            {
+
+                //only print key if it doesn't started  with number
+                // if ( isNaN(parseInt(hightlightedKey[j])) ) 
+                //   {
+                content += (hightlightedKey[j].replace(/\_/g, ' ').replace(/[0-9]/g, "")) + ': ';
+                // }
+                content += highlightText(pValue) + "  ";
+                //   if(i%3===0)
+                // {
+                content += "<br>";
+                //}
+
+                // console.log("nonempty value");
+                tiledItem += '<p><strong>' + hightlightedKey[j].replace(/_/g, ' ') + ': </strong>' + highlightText(pValue) + '</p>';
+
+
 
 
             }
         }
-        hightlightedKey.sort(function(a, b) {
-            a = a.toLowerCase();
-            b = b.toLowerCase();
-            if (a === b)
-                return 0;
-            if (a > b)
-                return 1;
-            return -1;
-        });
-        var k=0;
+        content += "</a>";
+
+        for (j = 0; j < treeViewEnabledField_key.length; j++) {
+            pValue = AjaxSolr.theme.prototype.printValue(doc[treeViewEnabledField_key[j]], query, treeViewEnabledField_key[j], false, true);
+
+
+            if (pValue && pValue.length > 0)
+            {
+                // console.log("nonempty value");
+                tiledItem += '<p><strong>' + treeViewEnabledField_key[j] + ': </strong>' + pValue + '</p>';
+
+                if (isNaN(parseInt(treeViewEnabledField_key[j])))
+                {
+                    content += treeViewEnabledField_key[j].replace(/\_/g, ' ') + ':';
+                }
+
+                content +=
+                        '<div  class="idtrees"' + 'name="' + treeViewEnabledField_key[j] + '">' +
+                        '<ul>' +
+                        "<li  data-jstree='{ \"opened\" : true }' >" + pValue + "</li></ul></div>";
+
+            }
+
+
+        }
+
+
+        for (j = 0; j < key.length; j++) {
+            pValue = AjaxSolr.theme.prototype.printValue(doc[key[j]], query, key[j], true);
+
+            if (pValue && pValue.length > 0)
+            {
+                // console.log("nonempty value");
+                tiledItem += '<p><strong>' + key[j] + ': </strong>' + AjaxSolr.theme.prototype.printValue(doc[key[j]], query, key[j], false) + '</p>';
+
+                if (isNaN(parseInt(key[j])))
+                {
+                    content += key[j].replace(/\_/g, ' ') + ':';
+                }
+
+
+
+                content += pValue + " | ";
+
+                if (j > 0 && j % 4 === 0)
+                {
+                      content=content.substr(0, content.length-1);
+                    content += "<br>";
+                }
+            }
+
+        }
+
+        tiledItem += '<br><br></div>';
+        content += '<br><div><span style="display:none;" class="doc">' + tiledItem +
+                '</span><a href="#" class="showDoc" >show document...</a><div>';
+        content += '<br><br></div></li>';
+
+
+        return content;
+
+
+    }
+
+    /**
+     * 
+     * @param {type} doc
+     * @returns {String} tree leaf format for the  document
+     */
+    function template_tree(doc) {
+
+        var tiledItem = '<div>';
+        var content = "";
+        // var content="<li><div>";
+
+        var key = new Array();
+        var h = 0;
+
+
+        content += '<a href="#" class="showDoc" >';
+        var query = Manager.store.get("q").value;
+
+        var k = 0;
         for (var index in doc) {
 
             //replace the content in docs with highlighted
 
             //if the header column doesn't already exist. add to the string
 
-            if ( index!="SOLR_UUID" && index!='version' &&
-                    hightlightedKey.indexOf(index, 0) < 0)
+            if (index != "SOLR_UUID" && index != '_version_')
             {
                 key[k++] = index;
-                  //ends with a date time type
-                if((!dateFound)&& (index.match(/\_tdt$/)|| index.indexOf('date')>=0))
-                    {
-                        dateFound=true;
-                        var dt=doc[index];
-                        if(dt.length=7)
-                            {
-                                content+="<p> <pre> Date/Cycle: "+dt+ "   From Source "+doc['source_nm']+"</pre></p>"
-                            }
-                            else
-                                {
-                        content+='<p><pre>'+ dt+ "  From Source "+doc['source_nm']+'</pre></p>';
-                                }
-                    }
-                    
+
+
             }
-            
-
-
 
         }
-       
+
         key.sort(function(as, bs) {
 
             as = as.toLowerCase();
@@ -615,91 +799,109 @@
 
         });
 
-       
-        
-        for (j = 0; j < hightlightedKey.length; j++) {
-            var pValue =AjaxSolr.theme.prototype.printValue(doc[hightlightedKey[j]], query, hightlightedKey[j], false);
 
 
-            if (pValue && pValue.length > 0)
-            {
-               
-                //only print key if it doesn't started  with number
-               // if ( isNaN(parseInt(hightlightedKey[j])) ) 
-                 //   {
-                        content+=(hightlightedKey[j].replace(/\_/g, ' ').replace(/[0-9]/g, ""))+': ' ;
-                   // }
-                    content+=highlightText(pValue)+"  ";
-                  //   if(i%3===0)
-                   // {
-                        content+="<br>";
-                    //}
-                 
-                // console.log("nonempty value");
-                tiledItem += '<p><strong>' + hightlightedKey[j].replace(/_/g, ' ') + ': </strong>' + highlightText(pValue) + '</p>';
-            }
-        }
-           content+="</a>";
+
+        //content+="</a>";
         for (j = 0; j < key.length; j++) {
-            pValue = AjaxSolr.theme.prototype.printValue(doc[key[j]], query, key[j], false);
+            //disable any  embeded facet link in the tree leaf
+            pValue = AjaxSolr.theme.prototype.printValue(doc[key[j]], query, key[j], false, true);
 
             if (pValue && pValue.length > 0)
             {
+                if(query!=='*:*')
+                    {
+                //go ahead highlight the text as needed
+                pValue = highlightText(pValue);
+                    }
                 // console.log("nonempty value");
-                tiledItem += '<p><strong>' + key[j] + ': </strong>' + pValue + '</p>';
+                tiledItem += '<strong>' + key[j] + ': </strong>' + pValue + "</br>";
+
+
+               
+                    content += pValue + " | ";
                 
-                 if ( isNaN(parseInt(key[j])) ) 
-                    {
-                        content+=key[j].replace(/\_/g, ' ')+':' ;
-                    }
-                    content+=pValue+"  ";
-                     if(j%3===0)
-                    {
-                        content+="<br>";
-                    }
+
             }
 
         }
-      
+        
+        content=content.substr(0, content.length-1);
         tiledItem += '<br><br></div>';
-         content += '<div><span style="display:none;">' + tiledItem +
-                        '</span><a href="#" class="showDoc" >show detail...</a><div>';
-   content+='<br><br></div></li>';
-      //  tiledItem = snippet(tiledItem, true);
+        
+        //let's make content shrink, extend as needed, when length is >100
+         if (content.length > 100) {
 
-        return content;
-
-        //return tiledItem;
-    }
-    function snippet(v, checkLength) {
-        if (v == undefined)
-            return '';
-        else
-        {
-            var str = String(v);
-
-
-            var output = '';
-            if (checkLength && str.length > 200) {
-
-                var index = str.indexOf(' ', 200);
+                var index = content.indexOf(' ', 100);
 
                 if (index < 0)
                 {
-                    index = 200;
+                    index = 100;
                 }
 
+                //  <a href="javascript:showDocument(\''+str+'\')" >show document</a>';
 
+                
+                var snippet=content.substring(index);
+                content = content.substring(0, index);
+                //add more content to enable show/hide capability
+                 content += '</a><span  class="more" style="display:none;">' + snippet;
+                 content += '</span> <a href="#" class="more">show more..</a>';
+                 //add hidden tileItem to enable creation of document view when click 
+                   content += '<span  class="doc" style="display:none;">' + tiledItem +
+               '</span>';
+         }
+         else
+             {
+    
+       //make more and show doc work
+        content += '</a><span style="display:none;" class="doc">' + tiledItem +
+               '</span>';
+             }
+
+        return content;
+
+    }
+    /**
+     * 
+     * @param {type} v content
+     * @param {type} maxLength
+     * @returns {String} snippet of v, up to maxLength
+     */
+    
+    function snippet(v, maxLength) {
+        
+        if (v === undefined)
+            {
+            return '';
+            }
+        else
+            var str = String(v);
+
+        {
+
+            var output = '';
+            if (str.length > maxLength) {
+
+                var index = str.indexOf(' ', maxLength);
+
+                if (index < 0)
+                {
+                    index = maxLength;
+                }
 
                 //  <a href="javascript:showDocument(\''+str+'\')" >show document</a>';
 
                 output += str.substring(0, index);
+                /*
                 output += '<div><span style="display:none;">' + str +
                         '</span><a href="#" class="showDoc" >show document</a><div>';
-                /*
-                 output += '<div><span style="display:none;">' + str.substring(index);
+                */
+                
+                
+                 output += '<div><span style="display:none;" class="more">' + str.substring(index);
                  output += '</span> <a href="#" class="more">show more..</a></div>';
-                 */
+                 
             }
             else {
                 output += str;
@@ -775,8 +977,16 @@
 
     }
 
-
-    AjaxSolr.theme.prototype.printValue = function(v, q, key, checkLength) {
+    /**
+     * 
+     * @param {type} v  value
+     * @param {type} q   current query
+     * @param {type} key  the field key name
+     * @param {type} checkLength check length 
+     * @param {type} enableFacetLink enable facet link for the record
+     * @returns {String}
+     */
+    AjaxSolr.theme.prototype.printValue = function(v, q, key, checkLength, disableFacetLink) {
 
 
         //console.log("before print: "+v);
@@ -801,18 +1011,22 @@
             {
                 v = formatCurrency(v);
             }
-            if (key.indexOf('bsa_identifier') > 0 || key.indexOf('document_control_number') > 0 ||
-                    key === "record_code" || key === "document_type" || key === "record_type"
-                    || key === "source_nm" || key === "file" || key === "type_of_filling")
-
+            if (!disableFacetLink)
             {
-                v = '<a ' + 'name=' + key + ' class="innerlink" href="#"  onclick="javascript:disabledEventPropagation(event);javascript:updateFilter(this);return false;">' + v + '</a>';
+                // enable facet query on those fields
+                for (var i = 0; i < Manager.facetLinkEnableFields.length; i++) {
+                    if (Manager.facetLinkEnableFields[i] === key)
+                    {
+                        v = '<a ' + 'name=' + key + ' class="innerlink" href="#"  onclick="javascript:disabledEventPropagation(event);javascript:updateFilter(this);return false;">' + v + '</a>';
 
-                return v;
+                        return v;
+                    }
+                }
             }
 
+
             //go ahead embedded link to the column value
-            else if (key === 'web_link' || key === "image_links" || key === 'html_link')
+            if (key === 'web_link' || key === "image_links" || key === 'html_link')
             {
                 if (v.indexOf('.html') > 0)
 
@@ -923,7 +1137,7 @@
             }
 
 
-            return snippet(v, checkLength);
+            return snippet(v,  100);
 
 
         }
