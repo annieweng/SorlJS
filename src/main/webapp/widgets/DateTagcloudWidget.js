@@ -24,8 +24,8 @@
 			var maxCount = 0;
 			var objectedItems = [];
 			//	alert("this.target is"+this.target);
-			if (this.field == 'date_text' ) {
-				if(this.target =='#year')
+			if (this.field === this.manager.dateField ) {
+				if(this.target ==='#year')
 				{
 					var output = new Object(); 
 
@@ -36,7 +36,7 @@
 							var count = parseInt(this.manager.response.facet_counts.facet_dates[this.field][facet]);
 							facet=facet.substr(0, 4);
 
-							if(output[facet]!=undefined)
+							if(output[facet]!==undefined)
 							{
 								output[facet]=output[facet]+count;									   
 							}
@@ -53,7 +53,7 @@
 
 					}
 					for(var y in output){
-						if(Y!==undefined && output[y]>0)
+						if(y!==undefined && output[y]>0)
 
 						{
 							objectedItems.push({
@@ -97,7 +97,7 @@
 
 					}
 					for(var y in output){
-						if(Y!==undefined && output[y]>0)
+						if(y!==undefined && output[y]>0)
 
 						{
 							objectedItems.push({
