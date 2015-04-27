@@ -4,13 +4,27 @@ var Manager;
 
     $(function() {
         Manager = new AjaxSolr.Manager({
+            //local solr
+            /*
+               ALLsolrUrl: 'http://localhost:8983/solr/all/select'
+                    //uncomment this, if we want to have proxy through local web container
+                 , proxyUrl: '/SolrJSView/servlets/solrRequestServer'
+                  ,facetFields: [ 'table_nm', 'mediaFormat']
+                  , facetLinkEnableFields: ['table_nm', 'mediaFormat']
+                 //  , treeViewEnabledFields:  ['CITY', 'ZIP']
+                    // first child of tree, empty string will make tree simply 2 level, the 2nd level will be content of result, 
+                // otherwise, the result will be group by treeCategoryFieldName, resulting 3 level trees.
+               // , treeCategoryFieldName: ''
+                ,dateField: 'date_text'
+                //,treeSortByFieldName: 'UNIQ_ID'
+              
+           */
            
-          
-               
-            //main solr UrL
+                 
+            //test with reuter solr UrL
             ALLsolrUrl: 'http://reuters-demo.tree.ewdev.ca:9090/reuters/select'
                     //uncomment this, if we want to have proxy through local web container
-               //  , proxyUrl: '/bsaSolr/servlets/solrRequestServer'
+                // , proxyUrl: '/SolrJSView/servlets/solrRequestServer'
                     //facet fields for the query
                   ,facetFields: ['topics', 'organisations', 'exchanges', 'countryCodes']
                     //enable result of query that are part of faceLinkEnableFields to be facet enable.
